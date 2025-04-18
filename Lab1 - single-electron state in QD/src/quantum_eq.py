@@ -5,10 +5,10 @@ from scipy import linalg
 p = SimParams()
 
 def S_kl(k, l):
-    xk = calc_xy_k('x', k)
-    yk = calc_xy_k('y', k)
-    xl = calc_xy_k('x', l)
-    yl = calc_xy_k('y', l)
+    xk = p.xk[k]
+    yk = p.yk[k]
+    xl = p.xk[l]
+    yl = p.yk[l]
     
     frac1 = - (xk - xl)**2 / (4 * p.alpha('x'))
     frac2 = - (yk - yl)**2 / (4 * p.alpha('y'))
@@ -17,10 +17,10 @@ def S_kl(k, l):
     return result
 
 def K_kl(k, l):
-    xk = calc_xy_k('x', k)
-    yk = calc_xy_k('y', k)
-    xl = calc_xy_k('x', l)
-    yl = calc_xy_k('y', l)
+    xk = p.xk[k]
+    yk = p.yk[k]
+    xl = p.xk[l]
+    yl = p.yk[l]
     
     frac1 = ((xk - xl)**2 - 2*p.alpha('x')) / (4 * p.alpha('x')**2)
     frac2 = ((yk - yl)**2 - 2*p.alpha('y')) / (4 * p.alpha('y')**2)
@@ -29,10 +29,10 @@ def K_kl(k, l):
     return result
 
 def V_kl(k, l):
-    xk = calc_xy_k('x', k)
-    yk = calc_xy_k('y', k)
-    xl = calc_xy_k('x', l)
-    yl = calc_xy_k('y', l)
+    xk = p.xk[k]
+    yk = p.yk[k]
+    xl = p.xk[l]
+    yl = p.yk[l]
     
     frac1 = ((xk + xl)**2 + 2*p.alpha('x')) / (4) * p.omegax**2
     frac2 = ((yk + yl)**2 + 2*p.alpha('y')) / (4) * p.omegay**2

@@ -30,6 +30,15 @@ class SimParams:
         self.a = self.dx * (self.n-1) / 2.
         self.dim = self.N
         # self.dim = int((self.dx / self.dx_denser) * self.n)
+
+        self.xk = []
+        for k in range(self.N):
+            self.xk.append(-1. * self.a + self.dx * int(k/self.n))
+        
+        self.yk = []
+        for k in range(self.N):
+            self.yk.append(-1. * self.a + self.dx * int(k%self.n))
+
         
     def alpha(self, xy, h=1):
         if xy == 'x':
@@ -43,6 +52,6 @@ class SimParams:
     def showParams(self):
         print("\n\n#################################\nSimulation and System Parameters:\n")
         for k, v in self.__dict__.items():
-            if not k.startswith('_'):
+            if not k.startswith('_') and not isinstance(v, (list, dict, tuple)):
                 print(f"{k} = {v}")
         print("\n#################################\n\n")

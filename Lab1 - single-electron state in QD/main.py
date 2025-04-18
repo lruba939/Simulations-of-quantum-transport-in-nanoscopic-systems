@@ -26,9 +26,12 @@ def main():
     
     # print(eigenvalues_of_energy())
     
-    for k in range(6):
-        phi = wavfun(k)
-        map_plotter((np.abs(phi))**2, cm=cm_jet, xborder=4, yborder=4, title=f"Squared modulus of the wave\nfunction of {k} state.")
+    gaussians = [vec2mat(k) for k in [0,8,9]]
+    map_grid_plotter(gaussians, n=1, m=3, xborder=4, yborder=4, cm=cm_jet)
+    
+    # wavefunctions = [np.abs(wavfun(k))**2 for k in range(6)]
+    # map_grid_plotter(wavefunctions, n=2, m=3, xborder=4, yborder=4, cm=cm_jet)
+
 
 if __name__ == "__main__":
     main()

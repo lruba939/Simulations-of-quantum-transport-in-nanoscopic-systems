@@ -53,43 +53,60 @@ def cm2c(cmap, c_numb, step=6):
     
     return colors_arr
 
-def map_plotter(data, cm=cm_inferno, xlabel = "x [nm]", ylabel = "y [nm]", xborder=None, yborder=None, ticks_step=2, vmin=None, vmax=None, equal_aspect=True, title=None):
-    fig = plt.figure(figsize=(6, 3.2))
-    ax = fig.add_subplot(111)
+def map_plotter(data, ax=None, cm=cm_inferno, xlabel="x [nm]", ylabel="y [nm]", 
+                xborder=None, yborder=None, ticks_step=2, vmin=None, vmax=None, 
+                equal_aspect=True, title=None, show_colorbar=True):
 
+    if ax is None:
+        fig, ax = plt.subplots(figsize=(6, 3.2))
+    
     if equal_aspect:
         ax.set_aspect('equal')
-    
+
     extent = None
-    if xborder != None and yborder != None:
+    if xborder is not None and yborder is not None:
         ax.set_xlim(-xborder, xborder)
         ax.set_ylim(-yborder, yborder)
 
-        while (xborder%ticks_step != 0 and yborder%ticks_step != 0):
-            # print("\n", (xborder%ticks_step != 0 and yborder%ticks_step != 0))
-            # print("\n", ticks_step)
-            ticks_step = ticks_step + 1
+        while (xborder % ticks_step != 0 and yborder % ticks_step != 0):
+            ticks_step += 1
             if ticks_step > 5:
                 ticks_step = 1
                 break
-        
-        ax.set_xticks(np.linspace(-xborder, xborder, round(ticks_step*2)+1))
-        ax.set_yticks(np.linspace(-yborder, yborder, round(ticks_step*2)+1))
-        
-        extent = [-xborder, xborder, -yborder, yborder]
-    if xborder != None and yborder == None:
-        print("\n\nPlotting error!\nMissing 'yborder' parameter.\n")
-    if xborder == None and yborder != None:
-        print("\n\nPlotting error!\nMissing 'xborder' parameter.\n")
 
-    plt.imshow(data, interpolation='none', origin='lower', extent=extent, cmap=cm, vmin=vmin, vmax=vmax)
+        ax.set_xticks(np.linspace(-xborder, xborder, round(ticks_step * 2) + 1))
+        ax.set_yticks(np.linspace(-yborder, yborder, round(ticks_step * 2) + 1))
+
+        extent = [-xborder, xborder, -yborder, yborder]
+    elif xborder is not None or yborder is not None:
+        print("\n\nPlotting error!\nBoth 'xborder' and 'yborder' must be provided.\n")
+
+    im = ax.imshow(data, interpolation='none', origin='lower', extent=extent, cmap=cm, vmin=vmin, vmax=vmax)
     ax.tick_params(direction="out", which="both")
-    
+
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
-    
-    if title != None:
+
+    if title is not None:
         ax.set_title(title)
 
-    plt.colorbar(orientation='vertical')
+    if show_colorbar:
+        plt.colorbar(im, ax=ax, orientation='vertical')
+
+    return ax
+
+def map_grid_plotter(data_list, n, m, **kwargs):
+    fig, axes = plt.subplots(n, m, figsize=(4*m, 4*n))
+    
+    axes = np.atleast_2d(axes).reshape(-1)
+
+    for i, data in enumerate(data_list):
+        if i >= len(axes):
+            break
+        map_plotter(data, ax=axes[i], show_colorbar=False, **kwargs)
+
+    for j in range(len(data_list), len(axes)): # empty subplots if no data
+        axes[j].axis("off")
+
+    plt.tight_layout()
     plt.show()

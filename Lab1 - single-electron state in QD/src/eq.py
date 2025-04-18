@@ -14,8 +14,8 @@ def calc_xy_k(xy, k):
         return None
 
 def gaussian_fun_val(x, y, k):
-    xk = calc_xy_k('x', k)
-    yk = calc_xy_k('y', k)
+    xk = p.xk[k]
+    yk = p.yk[k]
     
     part1 = (np.pi * p.alpha('x')) **(-1/4)
     part2 = np.exp( - (x - xk)**2 / (2*p.alpha('x')) )
@@ -49,13 +49,7 @@ def vec2mat(k=None, vector=None):
 
 def ewe(matrix, function):  # each with each
     for k in range(p.N):
-        xk = calc_xy_k('x', k)
-        yk = calc_xy_k('y', k)
-        
         for l in range(k, p.N): # because we know that matrix will be simetric
-            xl = calc_xy_k('x', l)
-            yl = calc_xy_k('y', l)
-            
             val = function(k, l)
             
             matrix[k,l] = val
