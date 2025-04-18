@@ -28,7 +28,8 @@ class SimParams:
         self.dx = 1. / self.bohr_radius
         self.dx_denser = self.dx / 10.
         self.a = self.dx * (self.n-1) / 2.
-        self.dim = int(self.dx / self.dx_denser * self.n)
+        self.dim = self.N
+        # self.dim = int((self.dx / self.dx_denser) * self.n)
         
     def alpha(self, xy, h=1):
         if xy == 'x':

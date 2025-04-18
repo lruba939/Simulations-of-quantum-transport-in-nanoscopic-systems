@@ -53,7 +53,7 @@ def cm2c(cmap, c_numb, step=6):
     
     return colors_arr
 
-def map_plotter(data, cm=cm_inferno, xlabel = "x [nm]", ylabel = "y [nm]", xborder=None, yborder=None, ticks_step=2, vmin=None, vmax=None, equal_aspect=True):
+def map_plotter(data, cm=cm_inferno, xlabel = "x [nm]", ylabel = "y [nm]", xborder=None, yborder=None, ticks_step=2, vmin=None, vmax=None, equal_aspect=True, title=None):
     fig = plt.figure(figsize=(6, 3.2))
     ax = fig.add_subplot(111)
 
@@ -87,6 +87,9 @@ def map_plotter(data, cm=cm_inferno, xlabel = "x [nm]", ylabel = "y [nm]", xbord
     
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
+    
+    if title != None:
+        ax.set_title(title)
 
     plt.colorbar(orientation='vertical')
     plt.show()

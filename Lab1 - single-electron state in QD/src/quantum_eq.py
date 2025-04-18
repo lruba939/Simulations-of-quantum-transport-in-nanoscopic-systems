@@ -73,8 +73,7 @@ def wavfun(wave_num):
             val = 0
             
             for k in range(p.N):
-                for wl in range(wave_num):
-                    val = val + coef[wl][k] * gaussian_fun_val(x, y, k)
+                val = val + coef[k][wave_num] * gaussian_fun_val(x, y, k)
             wave[i][j] = val
             
     return wave
