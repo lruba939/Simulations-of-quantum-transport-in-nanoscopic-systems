@@ -52,6 +52,9 @@ class SimParams:
     def showParams(self):
         print("\n\n#################################\nSimulation and System Parameters:\n")
         for k, v in self.__dict__.items():
-            if not k.startswith('_') and not isinstance(v, (list, dict, tuple)):
-                print(f"{k} = {v}")
+            if not k.startswith('_'):
+                if not isinstance(v, (list, dict, tuple)):
+                    print(f"{k} = {v}")
+                else:
+                    print(f"{k} = {v[:5]}")
         print("\n#################################\n\n")

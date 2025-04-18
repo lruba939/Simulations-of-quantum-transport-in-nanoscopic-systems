@@ -5,8 +5,8 @@ from visualization.plotter import *
 
 
 def main():
-    # p = SimParams()
-    # p.showParams()
+    p = SimParams()
+    p.showParams()
     
     # S_mat = np.zeros((p.N, p.N))
     # S_mat = ewe(S_mat, S_kl)
@@ -26,8 +26,8 @@ def main():
     
     # print(eigenvalues_of_energy())
     
-    gaussians = [vec2mat(k) for k in [0,8,9]]
-    map_grid_plotter(gaussians, n=1, m=3, xborder=4, yborder=4, cm=cm_jet)
+    # gaussians = [vec2mat(k) for k in [0,8,9]]
+    # map_grid_plotter(gaussians, n=1, m=3, xborder=4, yborder=4, cm=cm_jet)
     
     # wavefunctions = [np.abs(wavfun(k))**2 for k in range(6)]
     # map_grid_plotter(wavefunctions, n=2, m=3, xborder=4, yborder=4, cm=cm_jet)
