@@ -12,7 +12,7 @@ rcParams['font.size'] = 14
 ## Lines
 rcParams['lines.solid_joinstyle'] = 'miter'  # other options: 'round' or 'bevel'
 rcParams['lines.antialiased'] = True  # turning on/off of antialiasing for sharper edges
-rcParams['lines.linewidth'] = 1
+rcParams['lines.linewidth'] = 1.25
 
 ## Legend
 rcParams['legend.loc'] = 'upper left'
@@ -107,6 +107,69 @@ def map_grid_plotter(data_list, n, m, **kwargs):
 
     for j in range(len(data_list), len(axes)): # empty subplots if no data
         axes[j].axis("off")
+
+    plt.tight_layout()
+    plt.show()
+    
+def line_plotter(xdata, ydata, ax=None, xlabel=r"$\omega_x$ [meV]", ylabel="Energy [meV]", color="black",
+                    linestyle="-", xlim=None, ylim=None, equal_aspect=False, title=None):
+
+    if ax is None:
+        fig, ax = plt.subplots(figsize=(6, 3.2))
+    
+    if equal_aspect:
+        ax.set_aspect('equal')
+
+    if xlim is not None:
+        if isinstance(xlim, (list, dict, tuple, np.ndarray)):
+            ax.set_xlim(xlim[0], xlim[1])
+        else:
+            print("\n\nWrong format of 'xlim'!\n")
+    else:
+        ax.set_xlim(min(xdata), max(xdata))
+
+    if ylim is not None:
+        if isinstance(ylim, (list, dict, tuple, np.ndarray)):
+            ax.set_ylim(ylim[0], ylim[1])
+        else:
+            print("\n\nWrong format of 'ylim'!\n")
+
+    ax.plot(xdata, ydata, color=color, linestyle=linestyle)
+
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+
+    if title is not None:
+        ax.set_title(title)
+
+    return ax
+
+def multi_line_plotter_same_axes(xdata_list, ydata_list, colors=None, linestyles=None, labels=None, 
+                                  xlabel=r"$\omega_x$ [meV]", ylabel="Energy [meV]",
+                                  xlim=None, ylim=None, equal_aspect=False, title=None,
+                                  legend=True):
+    
+    fig, ax = plt.subplots(figsize=(6, 4))
+    
+    num_curves = len(xdata_list)
+    
+    for i in range(num_curves):
+        color = colors[i] if colors is not None and i < len(colors) else "black"
+        linestyle = linestyles[i] if linestyles is not None and i < len(linestyles) else "-"
+        label = labels[i] if labels is not None and i < len(labels) else None
+
+        line_plotter(xdata_list[i], ydata_list[i], ax=ax,
+                       xlabel=xlabel, ylabel=ylabel,
+                       color=color, linestyle=linestyle,
+                       xlim=xlim, ylim=ylim,
+                       equal_aspect=equal_aspect, title=title)
+        
+        # Dodaj label tylko, jeśli jest
+        if label is not None:
+            ax.plot(xdata_list[i], ydata_list[i], label=label, color=color, linestyle=linestyle)
+
+    if legend and labels is not None:
+        ax.legend()
 
     plt.tight_layout()
     plt.show()

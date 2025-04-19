@@ -39,7 +39,9 @@ class SimParams:
         for k in range(self.N):
             self.yk.append(-1. * self.a + self.dx * int(k%self.n))
 
-        
+    def reset_to_defaults(self):
+        self._init_parameters()
+
     def alpha(self, xy, h=1):
         if xy == 'x':
             return h / (self.mstar * self.omegax)

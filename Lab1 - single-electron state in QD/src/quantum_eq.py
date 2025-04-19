@@ -43,14 +43,14 @@ def V_kl(k, l):
 def H_kl(k, l):
     return K_kl(k, l) + V_kl(k, l)
 
-def eigenvalues_of_energy():
+def eigenvalues_of_energy(range = 1):
     H = np.zeros((p.N, p.N))
     S = np.zeros((p.N, p.N))
     
     H = ewe(H, H_kl)
     S = ewe(S, S_kl)
         
-    return linalg.eigh(H, S)[0] * p.hartree_to_meV
+    return linalg.eigh(H, S)[0][:range] * p.hartree_to_meV
 
 def wavfun_coef():
     H = np.zeros((p.N, p.N))
