@@ -7,6 +7,13 @@ def main():
     p.set_sys(1)
     p.showParams()
     
+    line_plotter([i for i in range(p.N)], p.z, xlabel="N", ylabel="z")
+    plt.show()
+    line_plotter(p.z, p.U, xlabel="z", ylabel="U")
+    plt.show()
+    line_plotter(p.z, p.k, xlabel="z", ylabel="k")
+    plt.show()
+    
     # print(p.k)
 
     # Task 1
@@ -14,10 +21,10 @@ def main():
     T = []
     R = []
     for newE in E_arr:
-        # print(newE,"\n")
         p.set_E(newE)
-        T.append(calc_T())
-        R.append(calc_R())
+        valT, valR = calc_T_R()
+        T.append(valT)
+        R.append(valR)
         
     line_plotter(E_arr, T, xlabel="E", ylabel="Trans")
     plt.show()
