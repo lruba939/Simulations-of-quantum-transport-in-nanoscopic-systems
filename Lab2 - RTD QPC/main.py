@@ -7,12 +7,14 @@ def main():
     p.set_sys(1)
     p.showParams()
     
-    line_plotter([i for i in range(p.N)], p.z, xlabel="N", ylabel="z")
-    plt.show()
-    line_plotter(p.z, p.U, xlabel="z", ylabel="U")
-    plt.show()
-    line_plotter(p.z, p.k, xlabel="z", ylabel="k")
-    plt.show()
+    # line_plotter([i for i in range(p.N)], p.z, xlabel="N", ylabel="z")
+    # plt.show()
+    # line_plotter(p.z, p.U, xlabel="z", ylabel="U")
+    # plt.show()
+    # line_plotter(p.z, p.m, xlabel="z", ylabel="m")
+    # plt.show()
+    # line_plotter(p.z, p.k, xlabel="z", ylabel="k")
+    # plt.show()
     
     # print(p.k)
 
@@ -27,8 +29,9 @@ def main():
         R.append(valR)
         
     line_plotter(E_arr, T, xlabel="E", ylabel="Trans")
-    plt.show()
-    line_plotter(E_arr, R, xlabel="E", ylabel="Refl")
+    plt.plot(E_arr, R)
+    plt.plot(E_arr, np.array(R)+np.array(T), linestyle=":")
+    
     plt.show()
 
 if __name__ == "__main__":

@@ -4,7 +4,6 @@ from src.matrix import sqmodM1N
 
 p = SimParams()
 
-
 def calc_T_R():
     part1 = np.abs(p.k[-1]) * p.m[0]
     part2 = np.abs(p.k[0]) * p.m[-1]

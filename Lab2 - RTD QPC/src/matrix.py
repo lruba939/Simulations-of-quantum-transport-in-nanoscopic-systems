@@ -53,8 +53,8 @@ def _iMatrix(i):
     return Mi
 
 def _M1N():
-    MN = np.array([[1, 1],
-                  [1, 1]])
+    MN = np.array([[1, 0],
+                  [0, 1]])
     for i in range(p.N-1):
         Mi = _iMatrix(i)
         Mnext = MN @ Mi # Matrix multiplication (same as np.matmul())
