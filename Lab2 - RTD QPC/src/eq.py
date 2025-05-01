@@ -14,3 +14,24 @@ def calc_T_R():
     R = part3[1,0] / part3[0,0]
     
     return T, R
+
+def TsuEsaki(energies, bias):
+    const_part = p.m_Ga * p.kB * p.T / (2. * np.pi**2)
+    
+    integral = 0.
+    
+    for ene in energies:
+        p.set_sys(2, bias)
+        p.set_E(ene)
+        valT, _ = calc_T_R()
+        
+        ene = ene / p.hartree_to_eV
+        up = 1 + np.exp( (p.mu_s-ene) / (p.kB*p.T) )
+        down = 1 + np.exp( (p.mu_d-bias-ene) / (p.kB*p.T) )
+        result = valT * np.log(up/down)
+        
+        integral = integral + result
+    
+    j = const_part * integral
+    
+    return j

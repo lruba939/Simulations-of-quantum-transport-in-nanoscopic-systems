@@ -112,7 +112,7 @@ def map_grid_plotter(data_list, n, m, **kwargs):
     plt.show()
     
 def line_plotter(xdata, ydata, ax=None, xlabel=r"$\omega_x$ [meV]", ylabel="Energy [meV]", color="black",
-                    linestyle="-", xlim=None, ylim=None, equal_aspect=False, title=None):
+                    linestyle="-", xlim=None, ylim=None, equal_aspect=False, title=None, label=None):
 
     if ax is None:
         fig, ax = plt.subplots(figsize=(6, 3.2))
@@ -134,7 +134,7 @@ def line_plotter(xdata, ydata, ax=None, xlabel=r"$\omega_x$ [meV]", ylabel="Ener
         else:
             print("\n\nWrong format of 'ylim'!\n")
 
-    ax.plot(xdata, ydata, color=color, linestyle=linestyle)
+    ax.plot(xdata, ydata, color=color, linestyle=linestyle, label=label)
 
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
