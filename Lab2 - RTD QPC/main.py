@@ -83,6 +83,22 @@ def main():
         
     # line_plotter(biases*p.hartree_to_eV*1e3, j_arr, xlabel="Bias [meV]", ylabel="j", color=c_twilight[0])
     # plt.show()
+    
+    # Task 3
+    
+    N = 100
+    
+    xs = np.linspace(0, p.L, N)
+    ys = np.linspace(-p.W / 2., p.W / 2., N)
+
+    Vmap = np.zeros((N,N))
+
+    for x_idx, x in enumerate(xs):
+        for y_idx, y in enumerate(ys):
+            Vmap[y_idx, x_idx] = V(x,y) * p.hartree_to_eV
+
+    map_plotter(Vmap, cm=cm_viridis, xborder=50, yborder=25)
+    plt.show()
 
 if __name__ == "__main__":
     main()

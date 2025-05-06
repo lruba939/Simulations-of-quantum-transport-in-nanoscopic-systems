@@ -31,6 +31,16 @@ class SimParams:
         self.mu_d = 87e-3 / self.hartree_to_eV # eV
         self.T = 77. # K
         
+        ## QPC parameters
+        self.eps = 13.6
+        self.d = 3. / self.bohr_radius
+        self.Vg = 4. / self.hartree_to_eV
+        self.W = 50. / self.bohr_radius
+        self.L = 100. / self.bohr_radius
+        self.g_start = 0.3
+        self.g_stop = 0.7
+        self.g_space = 0.6
+        
         ## Simulation settings
         self.N = 100
         self.z = np.linspace(0, self.L, self.N)
@@ -79,7 +89,7 @@ class SimParams:
         
     def set_E(self, newE):
         self.E = newE / self.hartree_to_eV
-        self.set_k()
+        self.set_k()      
 
     def reset_to_defaults(self):
         self._init_parameters()
