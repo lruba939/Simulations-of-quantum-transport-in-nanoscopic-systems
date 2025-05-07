@@ -80,15 +80,15 @@ def effectivePotential(N = 100, states = 5):
     dy = ys[1] - ys[0]
     
     alpha = 1 / (2*p.m_Ga * dy**2)
-    H = np.zeros(N, N)
+    H = np.zeros((N, N))
     energies = []
     
     for (x_idx, x) in enumerate(xs):
         for (idx, y) in enumerate(ys):
-            if(idx == 1):
+            if(idx == 0):
                 H[idx, idx] = 2 * alpha + V(x, y)
                 H[idx, idx + 1] = -alpha
-            if (idx == len(ys)):
+            if (idx == len(ys)-1):
                 H[idx, idx] = 2 * alpha + V(x, y)
                 H[idx, idx - 1] = -alpha
             else:
@@ -96,34 +96,35 @@ def effectivePotential(N = 100, states = 5):
                 H[idx, idx + 1] = -alpha
                 H[idx, idx] = 2 * alpha + V(x, y)
         
-        x_enes = linalg.eigh(H)[0][:states] * p.hartree_to_eV
+        x_enes = linalg.eigh(H)[0][:states]
         energies.append(x_enes)
         
-    return energies
+    return xs, energies
 
 def calcConductance():
     N = 100
-    energies = np.linspace(0.001 / p.hartree_to_eV, 200 / p.hartree_to_eV, N)
+    energies = np.linspace(1e-6, 0.2, N)
     conductances = []
 
     states = 5
-    for idx, ene in enumerate(energies):
-        conductances[idx] = getConductance(ene, states, 100)
+    for ene in energies:
+        conductances.append(getConductance(ene, states, 100))
 
     return energies, conductances
 
-# def getConductance(energy, states, N):
-#     eff_potential = effectivePotential(N=N, states=states)
+def getConductance(energy, states, N):
+    eff_potential = effectivePotential(N=N, states=states)
+    
+    eff_potential = np.array(eff_potential[1]).T
 
-#     x = np.linspace(0., p.L, N)
-#     mass = [p.m_Ga for i in x]
-#     temp_cond = 0.
+    temp_cond = 0.
+    
+    p.m_Al = p.m_Ga
 
-#     for state in eachrow(eff_potential):
-#         eff_pot = np.array(state)
-#         k = genKvector(eff_pot, mass, energy)
-#         qs = QuantumSystem(eff_pot, k, x, mass, energy, c, material, 0., qpc.length, 0.)
-#         r = solve(qs)
-#         temp_cond += r.transmittance
+    for state in eff_potential:
+        p.set_sys(1, bias=0.)
+        p.set_E(energy, state)
+        valT, _ = calc_T_R()
+        temp_cond += valT
 
-#     return temp_cond
+    return temp_cond

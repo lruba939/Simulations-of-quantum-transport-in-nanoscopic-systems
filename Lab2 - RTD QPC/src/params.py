@@ -83,13 +83,18 @@ class SimParams:
             
         self.set_k()
                 
-    def set_k(self):
+    def set_k(self, potential=None):
+        if potential is None:
+            U = self.U
+        else:
+            U = potential
+            
         for i in range(self.N):
-            self.k[i] = np.sqrt(2*self.m[i]*(self.E - self.U[i] + 0j))
+            self.k[i] = np.sqrt(2*self.m[i]*(self.E - U[i] + 0j))
         
-    def set_E(self, newE):
+    def set_E(self, newE, potential = None):
         self.E = newE / self.hartree_to_eV
-        self.set_k()      
+        self.set_k(potential)
 
     def reset_to_defaults(self):
         self._init_parameters()
