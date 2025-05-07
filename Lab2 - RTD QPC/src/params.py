@@ -26,7 +26,7 @@ class SimParams:
         self.m_Ga = 0.063*self.m0
         self.U_Al = 0.27 / self.hartree_to_eV # eV
         self.U_Ga = 0.0 / self.hartree_to_eV # eV
-        self.L = 15 / self.bohr_radius # nm
+        self.L_x = 15 / self.bohr_radius # nm
         self.mu_s = 87e-3 / self.hartree_to_eV # eV
         self.mu_d = 87e-3 / self.hartree_to_eV # eV
         self.T = 77. # K
@@ -43,7 +43,7 @@ class SimParams:
         
         ## Simulation settings
         self.N = 100
-        self.z = np.linspace(0, self.L, self.N)
+        self.z = np.linspace(0, self.L_x, self.N)
         self.m = np.array([0 for _ in range(self.N)], dtype=float)
         self.U = np.array([0 for _ in range(self.N)], dtype=float)
         self.k = np.array([0 for _ in range(self.N)], dtype=complex)
