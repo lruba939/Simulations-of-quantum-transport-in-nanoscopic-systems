@@ -22,7 +22,7 @@ class SimParams:
         self.sigma = 10 #nm
         self.sigma = units.nm2au(self.sigma)
         
-        self.B = 2
+        self.B = 0.
         self.B = units.T2au(self.B)
         
         
