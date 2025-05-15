@@ -142,41 +142,70 @@ def main():
                         R2=nm2au(120)
                         )
     sys = make_system(nw, is_ring=1)
-    kwant.plot(sys, site_color=lambda site: sys.hamiltonian(site,site), fig_size=(10,5), colorbar=False, show=False, num_lead_cells=2);
-    plt.tight_layout()
-    plt.savefig("priv/plots/sys3.png")
-    # plt.show()
+    # kwant.plot(sys, site_color=lambda site: sys.hamiltonian(site,site), fig_size=(10,5), colorbar=False, show=False, num_lead_cells=2);
+    # plt.tight_layout()
+    # plt.savefig("priv/plots/sys3.png")
+    # # plt.show()
     
-    moments, enes = disperssion(nw, 0, .1, 200)
-    plt.figure(figsize=(6,6))
-    plt.plot(moments, np.asarray(enes)/eV2au(1.0),'k-')
-    plt.tick_params(axis='both', which='major', labelsize=22)
-    plt.ylim((0,.1))
-    plt.xlim((-0.2,.2))
-    plt.xlabel("k [1/nm]",fontsize=22)
-    plt.ylabel("E [eV]",fontsize=22)
-    plt.tight_layout()
-    plt.savefig("priv/plots/disp3.png")
-    # plt.show()
+    # moments, enes = disperssion(nw, 0, .1, 200)
+    # plt.figure(figsize=(6,6))
+    # plt.plot(moments, np.asarray(enes)/eV2au(1.0),'k-')
+    # plt.tick_params(axis='both', which='major', labelsize=22)
+    # plt.ylim((0,.1))
+    # plt.xlim((-0.2,.2))
+    # plt.xlabel("k [1/nm]",fontsize=22)
+    # plt.ylabel("E [eV]",fontsize=22)
+    # plt.tight_layout()
+    # plt.savefig("priv/plots/disp3.png")
+    # # plt.show()
     
-    B_arr = np.linspace(-10, 10, 40)
-    up = []
-    down = []
-    ene = 0.10
+    # B_arr = np.linspace(-10, 10, 40)
+    # up = []
+    # down = []
+    # ene = 0.10
 
-    for B in B_arr:
-        p.B = T2au(B)
-        up.append(transmission(nw, ene, 1, 0, is_ring=1))
-        down.append(transmission(nw, ene, 2, 0, is_ring=1))
+    # for B in B_arr:
+    #     p.B = T2au(B)
+    #     up.append(transmission(nw, ene, 1, 0, is_ring=1))
+    #     down.append(transmission(nw, ene, 2, 0, is_ring=1))
         
-    plt.figure(figsize=(8,4))
-    plt.plot(B_arr, up, color = cm2c(cm_inferno, 10)[2])
-    plt.plot(B_arr, down, color = cm2c(cm_inferno, 10)[6])
-    plt.xlabel("Bz [T]",fontsize=22)
-    plt.ylabel("G [2e^2/h]",fontsize=22)
+    # plt.figure(figsize=(8,4))
+    # plt.plot(B_arr, up, color = cm2c(cm_inferno, 10)[2])
+    # plt.plot(B_arr, down, color = cm2c(cm_inferno, 10)[6])
+    # plt.xlabel("Bz [T]",fontsize=22)
+    # plt.ylabel("G [2e^2/h]",fontsize=22)
+    # plt.tight_layout()
+    # plt.savefig("priv/plots/cond3.png")
+    # # plt.show()
+    
+    fig, axs = plt.subplots(2, 2, figsize=(8,8), dpi = 300)
+    p.B = T2au(0)
+    current(nw, 0.03, 0, 0, ax = axs[0, 0], is_ring=1)
+    axs[0,0].set_title(f"B = 0 T",fontsize=22)
+    axs[0,0].set_xlabel("x [a.u.]",fontsize=22)
+    axs[0,0].set_ylabel("y [a.u.]",fontsize=22)
+
+    p.B = T2au(1)
+    current(nw, 0.03, 0, 0, ax = axs[0, 1], is_ring=1)
+    axs[0,1].set_title(f"B = 1 T",fontsize=22)
+    axs[0,1].set_xlabel("x [a.u.]",fontsize=22)
+    axs[0,1].set_ylabel("y [a.u.]",fontsize=22)
+
+    p.B = T2au(5)
+    current(nw, 0.03, 0, 0, ax = axs[1, 0], is_ring=1)
+    axs[1,0].set_title(f"B = 5 T",fontsize=22)
+    axs[1,0].set_xlabel("x [a.u.]",fontsize=22)
+    axs[1,0].set_ylabel("y [a.u.]",fontsize=22)
+
+    p.B = T2au(-5)
+    current(nw, 0.03, 0, 0, ax = axs[1, 1], is_ring=1)
+    axs[1,1].set_title(f"B = -5 T",fontsize=22)
+    axs[1,1].set_xlabel("x [a.u.]",fontsize=22)
+    axs[1,1].set_ylabel("y [a.u.]",fontsize=22)
+
     plt.tight_layout()
-    plt.savefig("priv/plots/cond3.png")
-    # plt.show()
+    plt.savefig("priv/plots/curr3.png")
+    #plot.show()
 
 if __name__ == "__main__":
     main()
