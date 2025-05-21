@@ -33,6 +33,13 @@ def transmission(nw, E):
     t=smatrix.transmission(1,0)
     return t
 
+def transmission_spins(nw, E, leads, spins):
+        E = units.eV2au(E)
+        sys= syst.make_system(nw)
+        smatrix=kwant.smatrix(sys,E)
+        t=smatrix.transmission((leads[0], spins[0]), (leads[1], spins[1]))
+        return t
+
 #calculates the conductance - the Landauer formula is used
 def conductance(nw, Emax, ne):
     energies=np.linspace(0, Emax, ne)

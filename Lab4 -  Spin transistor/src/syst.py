@@ -15,17 +15,23 @@ p = params.SimParams()
 def make_system(nw):
     m=nw.m
     dx=nw.dx
-    L=nw.L
-    W=nw.W
-
-    x0 = units.nm2au(L)
-    y0 = 0
 
     def onsite(site):
         t=1.0/(2.0*m*dx*dx)
         
         const_val = 1/2. * 1/2. * p.g
         bracket_part = p.B_x*p.sigma_x + p.B_y*p.sigma_y + p.B_z*p.sigma_z
+        
+        if(nw.mag_region_con == 1):
+            # print("True")
+            if(site.pos[0] >= nw.mag_region[0]*p.L*dx and site.pos[0] <= nw.mag_region[1]*p.L*dx):
+                if(nw.mag_reg_dir == 'X'):
+                    sigma = p.sigma_x
+                if(nw.mag_reg_dir == 'Y'):
+                    sigma = p.sigma_y
+                if(nw.mag_reg_dir == 'Z'):
+                    sigma = p.sigma_z
+                bracket_part = bracket_part + nw.mag_region_val*sigma
         
         result = 4*t*p.I + const_val*bracket_part
         
@@ -37,7 +43,7 @@ def make_system(nw):
         
         part1 = -1j * t_SO * p.sigma_x
         
-        result = t*p.I + part1
+        result = -t*p.I + part1
         
         return result
 
