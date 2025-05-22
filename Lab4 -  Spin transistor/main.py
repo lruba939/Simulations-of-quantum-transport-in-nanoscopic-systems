@@ -11,19 +11,21 @@ from visualization.plotter import *
 def main():
     p = SimParams()
 
-    ## Task 1
+    #### Task 1
     
-    p.alpha = 0.
+    ## Task 1.1
     
-    nw = types.SimpleNamespace(\
-                        dx=nm2au(4),
-                        L=nm2au(p.L),
-                        W=nm2au(p.W),
-                        m=p.m_eff,
-                        mag_region_con = 0
-                        )
+    # p.alpha = 0.
+    
+    # nw = types.SimpleNamespace(\
+    #                     dx=nm2au(4),
+    #                     L=nm2au(p.L),
+    #                     W=nm2au(p.W),
+    #                     m=p.m_eff,
+    #                     mag_region_con = 0
+    #                     )
 
-    sys=make_system(nw)
+    # sys=make_system(nw)
     # kwant.plot(sys, fig_size=(10,5), colorbar=False, show=False, num_lead_cells=2);
     # plt.show()
     
@@ -39,6 +41,8 @@ def main():
     # plt.tight_layout()
     # plt.savefig("priv/plots/disp1.png")
     # plt.show()
+    
+    ## Task 1.2
     
     # p.B_x = T2au(1)
     
@@ -86,6 +90,8 @@ def main():
     # plt.tight_layout()
     # plt.savefig("priv/plots/disp2_3.png")
     # plt.show()
+    
+    ## Task 1.3
 
     # p.B_z = T2au(1.)
     # energies, cond=conductance(nw, 0.05, 50)
@@ -97,6 +103,8 @@ def main():
     # plt.tight_layout()
     # plt.savefig("priv/plots/cond1.png")
     # plt.show()
+    
+    ## Task 1.4
     
     # mag_region_vals = np.linspace(0, 1, 50)
     # transmittances = np.zeros((len(mag_region_vals), 4))
@@ -133,6 +141,68 @@ def main():
     # plt.legend(fontsize=14)
     # plt.tight_layout()
     # plt.savefig("priv/plots/trans1.png")
+    # plt.show()
+    
+    ## Task 1.5 and 1.6
+    
+    # p.B_z = T2au(0.1)
+    # E = 0.005
+    # p.alpha = 0.
+    
+    # nw = types.SimpleNamespace(\
+    #                     dx=nm2au(4),
+    #                     L=nm2au(p.L),
+    #                     W=nm2au(p.W),
+    #                     m=p.m_eff,
+    #                     mag_region_con = 1,
+    #                     mag_region = [0.2, 0.8],
+    #                     mag_reg_dir = 'Y',
+    #                     mag_region_val = T2au(0.6)
+    #                     )
+    
+    # den_up = np.matrix([[1,0],
+    #                     [0,0]])
+    # den_down = np.matrix([[0,0],
+    #                     [0,1]])
+    # # den_both = np.matrix([[1,0],
+    # #                     [0,1]])    
+    
+    # sys=make_system(nw)
+    
+    # wave_f=kwant.wave_function(sys, eV2au(E))(0)
+    
+    # density_up_op = kwant.operator.Density(sys, den_up)
+    # density_down_op = kwant.operator.Density(sys,den_down)
+    
+    # density_up_map = density_up_op(wave_f[0])
+    # density_down_map = density_down_op(wave_f[0])
+
+    # fig, ax = plt.subplots(2, 1, figsize=(10,3))
+    # kwant.plotter.map(sys, density_up_map, cmap=cm_inferno, ax=ax[0])
+    # kwant.plotter.map(sys, density_down_map, cmap=cm_inferno, ax=ax[1])
+    # ax[0].set_title("Spin up")
+    # ax[1].set_title("Spin down")
+    # plt.tight_layout()
+    # plt.savefig("priv/plots/spin1_1.png", dpi=150)
+    # plt.show()
+    
+    # density_x = kwant.operator.Density(sys, p.sigma_x)
+    # density_y = kwant.operator.Density(sys, p.sigma_y)
+    # density_z = kwant.operator.Density(sys, p.sigma_z)
+    
+    # density_x_map = density_x(wave_f[0])
+    # density_y_map = density_y(wave_f[0])
+    # density_z_map = density_z(wave_f[0])
+
+    # fig, ax = plt.subplots(3, 1, figsize=(10,5))
+    # kwant.plotter.map(sys, density_x_map, cmap=cm_inferno, ax=ax[0])
+    # kwant.plotter.map(sys, density_y_map, cmap=cm_inferno, ax=ax[1])
+    # kwant.plotter.map(sys, density_z_map, cmap=cm_inferno, ax=ax[2])
+    # ax[0].set_title(r"Spin s$_x$")
+    # ax[1].set_title(r"Spin s$_y$")
+    # ax[2].set_title(r"Spin s$_z$")
+    # plt.tight_layout()
+    # plt.savefig("priv/plots/spin1_2.png", dpi=150)
     # plt.show()
     
 if __name__ == "__main__":
