@@ -22,9 +22,9 @@ def make_system(nw):
         const_val = 1/2. * 1/2. * p.g
         bracket_part = p.B_x*p.sigma_x + p.B_y*p.sigma_y + p.B_z*p.sigma_z
         
-        if(nw.mag_region_con == 1):
+        if(nw.region_con == 1):
             # print("True")
-            if(site.pos[0] >= nw.mag_region[0]*p.L*dx and site.pos[0] <= nw.mag_region[1]*p.L*dx):
+            if(site.pos[0] >= nw.region[0]*p.L*dx and site.pos[0] <= nw.region[1]*p.L*dx):
                 if(nw.mag_reg_dir == 'X'):
                     sigma = p.sigma_x
                 if(nw.mag_reg_dir == 'Y'):
@@ -41,8 +41,14 @@ def make_system(nw):
         t=1.0/(2.0*m*dx*dx)
         t_SO = 1/2. * p.alpha / dx
         
-        part1 = -1j * t_SO * p.sigma_x
-        
+        if(nw.region_con == 2):
+            if(site_i.pos[0] >= nw.region[0]*p.L*dx and site_i.pos[0] <= nw.region[1]*p.L*dx):
+                part1 = 1j * t_SO * p.sigma_y
+            else:
+                part1 = 0
+        else:
+            part1 = 1j * t_SO * p.sigma_y
+            
         result = -t*p.I + part1
         
         return result
@@ -51,7 +57,13 @@ def make_system(nw):
         t=1.0/(2.0*m*dx*dx)
         t_SO = 1/2. * p.alpha / dx
         
-        part1 = 1j * t_SO * p.sigma_y
+        if(nw.region_con == 2):
+            if(site_i.pos[0] >= nw.region[0]*p.L*dx and site_i.pos[0] <= nw.region[1]*p.L*dx):
+                part1 = -1j * t_SO * p.sigma_x
+            else:
+                part1 = 0
+        else:
+            part1 = -1j * t_SO * p.sigma_x
         
         result = t*p.I + part1
         
