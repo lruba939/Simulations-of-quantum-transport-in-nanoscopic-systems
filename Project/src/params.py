@@ -16,6 +16,7 @@ class SimParams:
         ## Data
         self.Cu_dir = "data/Nb_Cu"
         self.Fe_dir = "data/Nb_Fe"
+        self.output_path = ''
         
         ## System parameters
         self.Delta_x = 0.2 #nm

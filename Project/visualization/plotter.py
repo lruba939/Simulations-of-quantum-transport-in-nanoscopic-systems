@@ -177,7 +177,7 @@ def multi_line_plotter_same_axes(xdata_list, ydata_list, colors=None, linestyles
     plt.tight_layout()
     plt.show()
     
-def plot_fit(p, V, G, Vfit, Gfit, name, folder, show=False):
+def plot_fit(p, V, G, Vfit, Gfit, name, folder, show=False, save=False):
     plt.figure(figsize=(6,4))
     plt.plot(V, G, 'o', ms=2, label='data', color='k')
     plt.plot(Vfit, Gfit, '-', lw=2, label='fit', color='tab:red', linestyle='--')
@@ -188,3 +188,6 @@ def plot_fit(p, V, G, Vfit, Gfit, name, folder, show=False):
     plt.tight_layout()
     if show:
         plt.show()
+    if save:
+        plt.savefig(p.output_path)
+        plt.close()

@@ -1,10 +1,11 @@
 import numpy as np
 import os
-from scipy.optimize import differential_evolution, curve_fit
+from scipy.optimize import differential_evolution, curve_fit, dual_annealing
 
 from src.eq import conductance
 from src.params import *
 from src.units import *
+from visualization.plotter import *
 
 p = SimParams()
 
@@ -35,7 +36,8 @@ def global_guess(V, G):
         
         return err
     
-    res = differential_evolution(loss, bounds, tol=1e-6)
+    # res = differential_evolution(loss, bounds, tol=0.01)
+    res = dual_annealing(loss, bounds, maxiter=50)
     return res.x
 
 def fit_KWANT(name, folder=p.Cu_dir):
@@ -51,3 +53,26 @@ def fit_KWANT(name, folder=p.Cu_dir):
     Gfit = conductance(Vfit)
     
     return V, G, Gfit, Vfit
+
+def plot_files(dir, figs_dir):
+    os.makedirs(figs_dir, exist_ok=True)
+
+    datas = [['# Name', 'Z', 'Delta', 'P']]
+
+    for filename in os.listdir(dir):
+        print(f"Processing file: {filename}")
+        base_filename = os.path.splitext(filename)[0]
+
+        V, G, Gfit, Vfit = fit_KWANT(filename, figs_dir)
+    
+        plot_fit(p, V, G, Vfit, Gfit, filename, dir, show=True, save=True)
+
+        output_filename = f"{base_filename}.png"
+        p.output_path = os.path.join(figs_dir, output_filename)
+
+        print(f"Plot saved to: {p.output_path}")
+
+        datas.append([filename, p.Z, p.Delta, p.P])
+
+    save_file_path = os.path.join(figs_dir, f'{dir[-5:]}.dat')
+    np.savetxt(save_file_path, datas, delimiter=',', fmt='%s')

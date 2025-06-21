@@ -18,7 +18,7 @@ def main():
     # kwant.plot(sys, fig_size=(10,5), colorbar=False, show=False, num_lead_cells=2);
     # plt.show()
     
-    ## Tests
+    # Tests
     # x = np.arange(0, 1250, 1)*p.dx
     # delta = []
     # for xi in x:
@@ -47,7 +47,7 @@ def main():
     # plt.legend(loc='best')
     # plt.show()
 
-    ## Final test
+    # Final test
     
     # for Z in [0.0, 0.5, 1.0, 1.5]:
     #     p.Z = Z
