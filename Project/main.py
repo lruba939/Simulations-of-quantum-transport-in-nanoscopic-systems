@@ -6,6 +6,7 @@ from src.params import *
 from src.units import *
 from src.eq import *
 from src.syst import *
+from src.func import *
 from visualization.plotter import *
 
 def main():
@@ -79,6 +80,11 @@ def main():
     # plt.xlim([0.1,0.5])
     # plt.legend(loc="best")
     # plt.show()
+    
+    name = '10norm'
+    
+    V, G, Gfit, Vfit = fit_KWANT(name, p.Cu_dir)
+    plot_fit(p, V, G, Vfit, Gfit, name, p.Cu_dir, show=True)
     
         
 if __name__ == "__main__":

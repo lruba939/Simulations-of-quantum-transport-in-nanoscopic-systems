@@ -13,6 +13,10 @@ class SimParams:
         return cls._instance
     
     def _init_parameters(self):
+        ## Data
+        self.Cu_dir = "data/Nb_Cu"
+        self.Fe_dir = "data/Nb_Fe"
+        
         ## System parameters
         self.Delta_x = 0.2 #nm
         self.dx = units.nm2au(self.Delta_x)
