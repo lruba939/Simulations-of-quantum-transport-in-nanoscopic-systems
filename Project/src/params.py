@@ -19,17 +19,17 @@ class SimParams:
         self.output_path = ''
         
         ## System parameters
-        self.Delta_x = 0.2 #nm
+        self.Delta_x = 0.001 #nm
         self.dx = units.nm2au(self.Delta_x)
-        self.a = 1.0 #nm
-        self.L = int(1250) #nm
+        self.a = 0.1 #nm
+        self.L = int(2500) #nm
         self.sigma_law = np.array([[1,0],
                                    [0,2]])
         
         ## Simulation settings
         self.Delta = 0.25e-3 #eV
         self.Delta_val = units.eV2au(self.Delta)
-        self.mu = 10e-3 #eV
+        self.mu = 7 #eV
         self.P = 0.0
         self.Z = 0.0
         self.t = 1 / (2 * self.dx**2)

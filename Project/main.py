@@ -14,6 +14,8 @@ def main():
     
     # p.showParams()
 
+    # p.mu = 10e-3
+
     # sys=make_system()
     # kwant.plot(sys, fig_size=(10,5), colorbar=False, show=False, num_lead_cells=2);
     # plt.show()
@@ -47,8 +49,9 @@ def main():
     # plt.legend(loc='best')
     # plt.show()
 
-    # Final test
-    
+    # # Final test
+    # energies = np.linspace(0, 0.5e-3, 100)
+
     # for Z in [0.0, 0.5, 1.0, 1.5]:
     #     p.Z = Z
     #     G = []
@@ -65,6 +68,7 @@ def main():
     # plt.show()
     
     # p.reset_to_defaults()
+    # # p.mu = 10e-3
     
     # for P in [0.0, 0.5, 0.8, 0.99]:
     #     p.P = P
@@ -80,12 +84,15 @@ def main():
     # plt.xlim([0.1,0.5])
     # plt.legend(loc="best")
     # plt.show()
+
+    # p.mu = 7
+
+    # name = '10norm'
     
-    name = '10norm'
+    # V, G, Gfit, Vfit = fit_KWANT(name, p.Cu_dir)
+    # plot_fit(p, V, G, Vfit, Gfit, name, p.Cu_dir, show=True, save=True)
     
-    V, G, Gfit, Vfit = fit_KWANT(name, p.Cu_dir)
-    plot_fit(p, V, G, Vfit, Gfit, name, p.Cu_dir, show=True)
-    
+    plot_files(p.Cu_dir,'data\KWANT_Cu_plots')
         
 if __name__ == "__main__":
     main()

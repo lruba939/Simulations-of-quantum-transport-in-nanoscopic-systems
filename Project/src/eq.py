@@ -33,4 +33,6 @@ def conductance(energies):
         Ree, Rhe = reflection_coeffs(E)
         G_val = 1 - Ree + Rhe
         G.append(G_val)
+    G = np.array(G)
+    G = G/G[-1]
     return G

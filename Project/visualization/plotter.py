@@ -179,15 +179,14 @@ def multi_line_plotter_same_axes(xdata_list, ydata_list, colors=None, linestyles
     
 def plot_fit(p, V, G, Vfit, Gfit, name, folder, show=False, save=False):
     plt.figure(figsize=(6,4))
-    plt.plot(V, G, 'o', ms=2, label='data', color='k')
-    plt.plot(Vfit, Gfit, '-', lw=2, label='fit', color='tab:red', linestyle='--')
+    plt.plot(V*1e3, G, 'o', ms=2, label='data', color='k')
+    plt.plot(Vfit*1e3, Gfit, '--', lw=2, label='fit', color='tab:red')
     plt.xlabel('V [mV]')
     plt.ylabel('G (normalized)')
     plt.legend(loc='best')
-    plt.title(f'KWANT {folder[-5:]}: {name}\n Fit final: Z={p.Z:.3f}, Δ={p.D*1e3:.2f} mV, P={p.P:.3f}')
+    plt.title(f'KWANT {folder[-5:]}: {name}\n Fit final: Z={p.Z:.3f}, Δ={p.Delta*1e3:.2f} mV, P={p.P:.3f}')
     plt.tight_layout()
-    if show:
-        plt.show()
     if save:
         plt.savefig(p.output_path)
-        plt.close()
+    if show:
+        plt.show()

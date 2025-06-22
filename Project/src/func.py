@@ -36,8 +36,9 @@ def global_guess(V, G):
         
         return err
     
-    # res = differential_evolution(loss, bounds, tol=0.01)
-    res = dual_annealing(loss, bounds, maxiter=50)
+    x0 = [1., 1.7e-3, 0.3]
+    # res = differential_evolution(loss, bounds, tol=0.1)
+    res = dual_annealing(loss, bounds, maxiter=3, no_local_search=True, x0=x0) # , x0=x0, maxfun=10, no_local_search=True
     return res.x
 
 def fit_KWANT(name, folder=p.Cu_dir):
@@ -49,7 +50,7 @@ def fit_KWANT(name, folder=p.Cu_dir):
     p.reset_to_defaults()
     p.Z = Z0; p.P = P0; p.Delta = D0; p.Delta_val = units.eV2au(D0);
 
-    Vfit = np.linspace(V[0], V[-1], 200)
+    Vfit = np.linspace(V[0], V[-1], 100)
     Gfit = conductance(Vfit)
     
     return V, G, Gfit, Vfit
@@ -60,15 +61,16 @@ def plot_files(dir, figs_dir):
     datas = [['# Name', 'Z', 'Delta', 'P']]
 
     for filename in os.listdir(dir):
+        p.reset_to_defaults()
         print(f"Processing file: {filename}")
         base_filename = os.path.splitext(filename)[0]
 
-        V, G, Gfit, Vfit = fit_KWANT(filename, figs_dir)
-    
-        plot_fit(p, V, G, Vfit, Gfit, filename, dir, show=True, save=True)
+        V, G, Gfit, Vfit = fit_KWANT(filename, dir)
 
         output_filename = f"{base_filename}.png"
         p.output_path = os.path.join(figs_dir, output_filename)
+    
+        plot_fit(p, V, G, Vfit, Gfit, filename, figs_dir, show=False, save=True)
 
         print(f"Plot saved to: {p.output_path}")
 
