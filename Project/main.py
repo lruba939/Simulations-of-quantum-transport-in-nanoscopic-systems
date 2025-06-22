@@ -92,7 +92,7 @@ def main():
     # V, G, Gfit, Vfit = fit_KWANT(name, p.Cu_dir)
     # plot_fit(p, V, G, Vfit, Gfit, name, p.Cu_dir, show=True, save=True)
     
-    plot_files(p.Cu_dir,'data\KWANT_Cu_plots')
+    plot_files(p.Fe_dir,'data\KWANT_Fe_plots')
         
 if __name__ == "__main__":
     main()

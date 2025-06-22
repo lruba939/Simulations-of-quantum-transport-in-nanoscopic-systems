@@ -18,7 +18,7 @@ def load_data(name, folder=p.Cu_dir):
 def global_guess(V, G):
     bounds = [
       (0, 5), # Z
-      (0, 3e-3), # Delta
+      (1e-3, 3e-3), # Delta
       (0, 1),     # P
       ]
     def loss(params):
@@ -36,7 +36,7 @@ def global_guess(V, G):
         
         return err
     
-    x0 = [1., 1.7e-3, 0.3]
+    x0 = [0.3, 1.55e-3, 0.35]
     # res = differential_evolution(loss, bounds, tol=0.1)
     res = dual_annealing(loss, bounds, maxiter=3, no_local_search=True, x0=x0) # , x0=x0, maxfun=10, no_local_search=True
     return res.x
